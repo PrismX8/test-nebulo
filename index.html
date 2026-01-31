@@ -1,0 +1,1150 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nebulo</title>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="ac558ad5-a729-416f-846e-d59a418f77ac"></script>
+    <link rel="icon" href="Nebulologo.png" type="image/png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+    <link rel="stylesheet" href="v86/v86-styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SUSE+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+        rel="stylesheet">
+    <script src="BdSkdFY/sail-sj/sail/baremux/index.js"></script>
+    <script src="BdSkdFY/sail-sj/sail/scram/scramjet.all.js"></script>
+    <script src="v86/cache-detector.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.15.0/dist/tf.min.js"></script>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://unpkg.com/open-props">
+    <link rel="stylesheet" href="https://unpkg.com/open-props/normalize.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/open-props/buttons.min.css">
+    <link rel="stylesheet" href="" id="themeLink">
+    <style id="desktopAppOverrides">
+        .app-item {
+            background: linear-gradient(135deg, rgba(10, 13, 22, 0.95), rgba(26, 31, 47, 0.92));
+            border: 1px solid rgba(125, 211, 192, 0.2);
+            border-radius: 24px;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            display: flex;
+            align-items: center;
+            min-height: 115px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(14px);
+        }
+
+        .app-item:hover {
+            transform: translateY(-4px);
+            border-color: rgba(125, 211, 192, 0.45);
+            box-shadow: 0 32px 45px rgba(0, 0, 0, 0.6);
+        }
+
+        .app-card-content {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .app-icon-shell {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: none;
+        }
+
+        .app-icon-shell i,
+        .app-icon-shell img {
+            font-size: 1.6rem;
+            color: var(--accent);
+        }
+
+        .app-icon-shell img {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+
+        .app-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .app-name {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: #f8fafc;
+        }
+
+        .app-desc {
+            font-size: 0.78rem;
+            color: rgba(241, 245, 249, 0.65);
+            margin-top: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .app-item.app-folder-toggle {
+            border-color: rgba(125, 211, 192, 0.5);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(30, 64, 175, 0.25));
+        }
+
+        .app-item.app-folder-toggle .app-icon-shell {
+            background: radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.65), rgba(59, 130, 246, 0));
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=998500&siteid=384113&niche=33" async data-cfasync="false"></script>
+    <style>
+        :root {
+            --chat-button-offset: 0px;
+        }
+
+        /* User profile badge */
+        .user-info-display {
+            position: fixed;
+            top: max(env(safe-area-inset-top), 10px);
+            right: clamp(12px, 3vw, 22px);
+            padding: 0.65rem 1.2rem;
+            background: rgba(7, 9, 14, 0.95);
+            border-radius: 999px;
+            border: 1px solid rgba(125, 211, 192, 0.45);
+            backdrop-filter: blur(12px);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.01em;
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.6);
+            z-index: 200;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .user-info-text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.05rem;
+        }
+        .user-account-status {
+            font-size: 0.65rem;
+            color: rgba(125, 211, 192, 0.9);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+        .user-account-status:empty {
+            display: none;
+        }
+
+        /* Global Chat Container */
+        .global-chat-container {
+            position: fixed;
+            top: max(env(safe-area-inset-top), 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.65rem;
+            z-index: 200;
+        }
+
+        /* Global Chat Button Styles */
+        .global-chat-button {
+            position: relative;
+            background: linear-gradient(135deg, rgba(19, 24, 42, 0.96), rgba(32, 40, 63, 0.95));
+            border: 1px solid rgba(125, 211, 192, 0.45);
+            border-radius: 999px;
+            padding: 0.5rem 1.1rem;
+            color: #f7fbff;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            cursor: pointer;
+            box-shadow: 0 18px 35px rgba(6, 8, 16, 0.6);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: clamp(0.75rem, 1.2vw, 0.95rem);
+            user-select: none;
+            white-space: nowrap;
+            max-width: calc(100vw - 48px);
+        }
+
+        .global-chat-button i {
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        #chatNotificationToggle {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: 1px solid rgba(125, 211, 192, 0.45);
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(32, 44, 79, 0.95));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 12px 28px rgba(6, 8, 16, 0.65);
+            transition: transform 0.2s ease, border 0.2s ease;
+        }
+
+        #chatNotificationToggle i {
+            color: var(--accent);
+            font-size: 1.05rem;
+        }
+
+        .global-chat-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 20px 30px rgba(4, 6, 12, 0.65);
+            border-color: rgba(125, 211, 192, 0.6);
+        }
+
+        .global-chat-button:active {
+            transform: none;
+        }
+
+        
+        #chatNotificationToggle.disabled i {
+            color: var(--error-red);
+        }
+        
+        #chatNotificationToggle.disabled:hover i {
+            color: var(--error-red-hover);
+        }
+        .chat-notification-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff4757 !important;
+            color: #fff;
+            border-radius: 999px !important;
+            min-width: 16px;
+            height: 16px;
+            padding: 0 4px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            line-height: 1;
+            z-index: 10000 !important;
+            pointer-events: none !important;
+            border: 2px solid rgba(21, 25, 35, 0.95);
+            box-shadow: 0 0 0 2px rgba(125, 211, 192, 0.3);
+            animation: pulse-red 2s infinite;
+        }
+
+        .chat-notification-badge::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 999px;
+            animation: pulse-white 2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes pulse-white {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.3); opacity: 0.4; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        /* Badge positioning now handled by container */
+
+        /* Updated Notification Badge - Unread Count */
+        .chat-notification-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #ff4757 !important;
+            color: #fff;
+            border-radius: 999px !important;
+            min-width: 16px;
+            height: 16px;
+            padding: 0 4px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            line-height: 1;
+            z-index: 10000 !important;
+            pointer-events: none !important;
+            border: 2px solid rgba(21, 25, 35, 0.95);
+            box-shadow: 0 0 0 2px rgba(125, 211, 192, 0.3);
+            animation: gentle-pulse 3s infinite;
+            opacity: 0.95;
+        }
+
+        .chat-notification-badge::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 999px;
+            animation: gentle-glow 3s infinite;
+        }
+
+        .chat-notification-badge::after {
+            display: none;
+        }
+
+        @keyframes gentle-pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.9;
+                box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.4);
+            }
+            50% {
+                transform: scale(1.15);
+                opacity: 1;
+                box-shadow: 0 0 0 4px rgba(255, 71, 87, 0);
+            }
+        }
+
+        @keyframes gentle-glow {
+            0%, 100% {
+                border: 1px solid rgba(255, 71, 87, 0.2);
+                transform: scale(1);
+            }
+            50% {
+                border: 1px solid rgba(255, 71, 87, 0.4);
+                transform: scale(1.1);
+            }
+        }
+
+        /* New Active Badge for When Chat is Open */
+        .chat-notification-badge.active {
+            background: #4cd137 !important;
+            animation: active-pulse 2s infinite;
+        }
+
+        .chat-notification-badge.active::before {
+            border: 1px solid rgba(76, 209, 55, 0.3);
+            animation: active-glow 2s infinite;
+        }
+
+        @keyframes active-pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.9;
+                box-shadow: 0 0 0 0 rgba(76, 209, 55, 0.4);
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+                box-shadow: 0 0 0 3px rgba(76, 209, 55, 0);
+            }
+        }
+
+        @keyframes active-glow {
+            0%, 100% {
+                border: 1px solid rgba(76, 209, 55, 0.2);
+            }
+            50% {
+                border: 1px solid rgba(76, 209, 55, 0.4);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bootloader">
+        <div class="boot-logo"><img src="Nebulologo.png" alt="Nebulo" style="width: 4rem; height: 4rem;"></div>
+        <h1 class="boot-title"><b>NEBULO</b></h1>
+        <div class="boot-version">Version 5</div>
+        <div id="bottom-text" style="position: absolute; bottom: 0.5rem; color: #888;">
+            made with <i class="fa-solid fa-heart"></i> by PrismX
+        </div>
+        <div class="boot-loading" id="bootLoading">
+            <div class="loading-bar-container">
+                <div class="loading-bar" id="loadingBar"></div>
+            </div>
+            <div class="boot-messages" id="bootMessages"></div>
+        </div>
+    </div>
+    <div id="login">
+        <div class="login-stage">
+            <div class="login-wrapper">
+                <section class="chromebook-device">
+                    <div class="device-display">
+                        <div class="device-titles">
+                            <h1>Nebulo V5</h1>
+                        </div>
+                        <p class="device-description">
+                            Fast, Fun, built for the community, with the Global chat filling up daily, V5.1 was made to fufill all the many requests put in to Nebulo!
+                        </p>
+                        <div class="device-meta">
+                            <span class="device-status-pill">Fast P@xY</span>
+                            <span class="device-status-pill accent">Real Games</span>
+                        </div>
+                    </div>
+                    <div class="device-panel">
+                        <div class="device-panel-row">
+                            <div>
+                                <p class="panel-label">Secure</p>
+                                <p class="panel-value">Verified</p>
+                            </div>
+                            <div>
+                                <p class="panel-label">Network</p>
+                                <p class="panel-value" id="deviceNetwork">Optimizing�</p>
+                            </div>
+                        </div>
+                        <div class="device-panel-row">
+                            <div>
+                                <p class="panel-label">Uptime</p>
+                                <p class="panel-value" id="uptime">♾️</p>
+                            </div>
+                            <div>
+                                <p class="panel-label">Clock</p>
+                                <p class="panel-value" id="loginClock">�:�</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="chromebook-panel login-container">
+                    <header class="panel-header">
+                        <p class="panel-badge">Nebulo Sign-in</p>
+                        <h2>Welcome Back</h2>
+                        <p class="panel-subtitle" id="loginSubtitle">Type or tap your credentials quickly.</p>
+                        <p class="login-date" id="loginDate">Syncing date...</p>
+                    </header>
+                    <form id="loginForm" class="chromebook-form" onsubmit="event.preventDefault(); login()">
+                        <label for="username" class="form-label subtle">
+                            Username
+                            <input
+                                type="text"
+                                id="username"
+                                class="login-input"
+                                placeholder="you@nebulo"
+                                required
+                                autocomplete="username"
+                            />
+                        </label>
+                        <label for="password" class="form-label subtle">
+                            Password
+                            <div class="password-wrapper" id="passwordWrapper">
+                                <input
+                                    type="password"
+                                    id="password"
+                                    class="login-input"
+                                    placeholder="Passwordless accounts skip this"
+                                    autocomplete="current-password"
+                                />
+                                <button type="button" class="password-toggle" id="passwordToggle" onclick="togglePassword()">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </label>
+                        <div class="form-actions">
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="rememberMe" />
+                                <label for="rememberMe">Remember this device</label>
+                            </div>
+                            <a href="#" class="forgot-link" onclick="event.preventDefault(); forgotPassword()">Need password help?</a>
+                        </div>
+                        <button type="submit" class="login-btn">
+                            <span class="btn-text">Sign in</span>
+                            <i class="fas fa-arrow-right btn-icon"></i>
+                        </button>
+                        <div class="keyboard-tip">
+                            <i class="fas fa-keyboard"></i>
+                            Hardware keyboards are fully supported � hit Enter to submit.
+                        </div>
+                    </form>
+                    <footer class="panel-footer">
+                        <div class="security-notice">
+                            <i class="fas fa-shield-alt"></i>
+                            Nebulo communication is verified for Nebulo V5.
+                        </div>
+                        <p class="help-text">
+                            Need help? <a href="https://dsc.gg/nebulo">Join the discord</a> 
+                        </p>
+                    </footer>
+                </section>
+            </div>
+        </div>
+    </div>
+<div id="setup"
+        style="position: fixed; inset: 0; background: linear-gradient(135deg, #0a0e1a 0%, #151923 100%); display: none; align-items: center; justify-content: center; z-index: 9999; opacity: 0; transition: opacity 0.5s ease; padding: 2rem; font-family: font !important">
+        <div
+            style="position: absolute; width: 170px; height: 170px; border-radius: 50%; background: rgba(125, 211, 192, 0.04); top: 5%; left: 2%; animation: float 7s ease-in-out infinite;">
+        </div>
+        <div
+            style="position: absolute; width: 130px; height: 130px; border-radius: 50%; background: rgba(125, 211, 192, 0.05); top: 12%; right: 8%; animation: float 9s ease-in-out infinite 1.5s;">
+        </div>
+        <div
+            style="position: absolute; width: 140px; height: 140px; border-radius: 50%; background: rgba(125, 211, 192, 0.03); top: 68%; left: 5%; animation: float 8s ease-in-out infinite 3s;">
+        </div>
+        <div
+            style="position: absolute; width: 120px; height: 120px; border-radius: 50%; background: rgba(125, 211, 192, 0.06); bottom: 8%; right: 12%; animation: float 10s ease-in-out infinite 4.5s;">
+        </div>
+        <div
+            style="position: absolute; width: 200px; height: 200px; border-radius: 50%; background: rgba(125, 211, 192, 0.04); top: 30%; left: 20%; animation: float 11s ease-in-out infinite 2s;">
+        </div>
+        <div
+            style="position: absolute; width: 190px; height: 190px; border-radius: 50%; background: rgba(125, 211, 192, 0.05); bottom: 30%; right: 15%; animation: float 6s ease-in-out infinite 5s;">
+        </div>
+        <div
+            style="position: absolute; width: 130px; height: 130px; border-radius: 50%; background: rgba(125, 211, 192, 0.05); top: 5%; right: 52%; animation: float 6s ease-in-out infinite 5s;">
+        </div>
+        <div
+            style="position: absolute; width: 160px; height: 160px; border-radius: 50%; background: rgba(125, 211, 192, 0.05); bottom: 10%; left: 52%; animation: float 6s ease-in-out infinite 5s;">
+    </div>
+
+        <div
+            style="background: rgba(21, 25, 35, 0.7); backdrop-filter: blur(40px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 1.5rem 1.25rem; width: min(96%, 520px); box-sizing: border-box; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); font-family: 'font' !important;">
+            <div style="text-align: center; margin-bottom: 2.5rem;">
+                <div
+                    style="width: 100px; height: 100px; background: linear-gradient(135deg, var(--accent), var(--accent-hover)); border-radius: 50%; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 1.5rem; margin: 0 auto 1.5rem; animation: float 3s ease-in-out infinite;">
+                    <img src="../Nebulologo.png" alt="Nebulo" style="width: 3.5rem; height: 3.5rem;">
+                </div>
+                <h2 style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--text-primary); font-family: fontb;">
+                    Welcome to Nebulo
+                </h2>
+                <p style="color: var(--text-secondary); font-size: 1rem;">
+                    Let's set up your account
+                </p>
+            </div>
+
+            <div id="setupStep1" style="display: block;">
+                <div style="margin-bottom: 1.5rem;">
+                    <label
+                        style="display: block; color: var(--text-primary); font-size: 0.9rem; margin-bottom: 0.5rem; font-weight: 500;">Choose
+                        a Username</label>
+                    <input type="text" id="setupUsername" placeholder="Enter your username"
+                        style="width: 100%; padding: 0.875rem 1rem; background: rgba(30, 35, 48, 0.8); border: 1px solid var(--border); border-radius: 10px; color: var(--text-primary); font-size: 0.95rem; transition: all 0.2s ease;"
+                        onfocus="this.style.borderColor='var(--accent)'; this.style.background='rgba(30, 35, 48, 0.95)'"
+                        onblur="this.style.borderColor='var(--border)'; this.style.background='rgba(30, 35, 48, 0.8)'">
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label
+                        style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; color: var(--text-primary); font-size: 0.9rem; font-weight: 500;">
+                        <label class="cl-checkbox">
+                            <input type="checkbox" id="setupPasswordless" onchange="togglePasswordless()">
+                            <span>Create Passwordless Account</span>
+                        </label>
+                    </label>
+                    <p style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 0.5rem;">
+                        Skip password creation for easier access (no security)
+                    </p>
+                </div>
+
+                <div style="display: flex; gap: 0.75rem; margin-bottom: 0.75rem;">
+                    <label for="importProfileInput"
+                        style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem; background: rgba(125, 211, 192, 0.15); border: 1px solid rgba(125, 211, 192, 0.3); border-radius: 10px; color: var(--text-primary); font-size: 0.95rem; font-family: fontb; cursor: pointer; transition: all 0.2s ease; text-align: center;"
+                        onmouseover="this.style.background='rgba(125, 211, 192, 0.25)'; this.style.borderColor='rgba(125, 211, 192, 0.5)'"
+                        onmouseout="this.style.background='rgba(125, 211, 192, 0.15)'; this.style.borderColor='rgba(125, 211, 192, 0.3)'">
+                        <i class="fas fa-file-import"></i> Import Profile
+                        <input type="file" id="importProfileInput" accept=".nebuloprofile" onchange="importProfile(event)"
+                            style="display: none;">
+                    </label>
+
+                    <button onclick="setupStep1Next()"
+                        style="flex: 1; padding: 0.75rem; background: linear-gradient(135deg, var(--accent), var(--accent-hover)); border: none; border-radius: 10px; color: var(--bg-primary); font-size: 0.95rem; font-family: fontb; cursor: pointer; transition: all 0.2s ease;"
+                        onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(125, 211, 192, 0.3)'"
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                        Continue
+                    </button>
+                </div>
+
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0; text-align: center;">
+                    Import a previously exported profile to restore your settings and data
+                </p>
+            </div>
+
+            <div id="setupStep2" style="display: none;">
+                <div style="margin-bottom: 1.5rem;">
+                    <label
+                        style="display: block; color: var(--text-primary); font-size: 0.9rem; margin-bottom: 0.5rem; font-family: fontb;"
+                        id="passwordLabel">Create a Password</label>
+                    <div class="login-input-wrapper" style="position: relative;">
+                        <input type="password" id="setupPassword" placeholder="Enter your password"
+                            style="width: 100%; padding: 0.875rem 1rem; background: rgba(30, 35, 48, 0.8); border: 1px solid var(--border); border-radius: 10px; color: var(--text-primary); font-size: 0.95rem; margin-bottom: 0.875rem; transition: all 0.2s ease;"
+                            onfocus="this.style.borderColor='var(--accent)'; this.style.background='rgba(30, 35, 48, 0.95)'"
+                            onblur="this.style.borderColor='var(--border)'; this.style.background='rgba(30, 35, 48, 0.8)'" />
+                        <i class="fas fa-eye password-toggle" id="setupPasswordToggle" onclick="toggleSetupPassword()"
+                            style="position: absolute; right: 1rem; top: 40%; transform: translateY(-50%); cursor: pointer; color: var(--text-secondary); transition: color 0.2s ease;"
+                            onmouseover="this.style.color='var(--text-primary)'"
+                            onmouseout="this.style.color='var(--text-secondary)'"></i>
+                    </div>
+                    <input type="password" id="setupPasswordConfirm" placeholder="Confirm your password"
+                        style="width: 100%; padding: 0.875rem 1rem; background: rgba(30, 35, 48, 0.8); border: 1px solid var(--border); border-radius: 10px; color: var(--text-primary); font-size: 0.95rem; transition: all 0.2s ease;"
+                        onfocus="this.style.borderColor='var(--accent)'; this.style.background='rgba(30, 35, 48, 0.95)'"
+                        onblur="this.style.borderColor='var(--border)'; this.style.background='rgba(30, 35, 48, 0.8)'" />
+                </div>
+                <div style="display: flex; gap: 0.75rem;">
+                    <button onclick="setupStep2Back()"
+                        style="flex: 1; padding: 0.875rem; background: rgba(125, 211, 192, 0.15); border: 1px solid rgba(125, 211, 192, 0.3); border-radius: 10px; color: var(--text-primary); font-size: 0.95rem; font-family: fontb; cursor: pointer; transition: all 0.2s ease;"
+                        onmouseover="this.style.background='rgba(125, 211, 192, 0.25)'; this.style.borderColor='rgba(125, 211, 192, 0.5)'"
+                        onmouseout="this.style.background='rgba(125, 211, 192, 0.15)'; this.style.borderColor='rgba(125, 211, 192, 0.3)'">
+                        Back
+                    </button>
+                    <button onclick="setupStep2Next()"
+                        style="flex: 1; padding: 0.875rem; background: linear-gradient(135deg, var(--accent), var(--accent-hover)); border: none; border-radius: 10px; color: var(--bg-primary); font-size: 0.95rem; font-family: fontb; cursor: pointer; transition: all 0.2s ease;"
+                        onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(125, 211, 192, 0.3)'"
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                        Continue
+                    </button>
+                </div>
+            </div>
+
+            <div id="setupStep3" style="display: none;">
+                <div style="margin-bottom: 1.5rem;">
+                    <h3 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem; font-family: fontb;">
+                        Install Applications</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.5rem;">Select
+                        additional apps to install (you can always add more later from the App Store)</p>
+
+                    <div id="setupAppOptions" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <label
+                            style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: rgba(30, 35, 48, 0.6); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s ease;"
+                            onmouseover="this.style.background='rgba(125, 211, 192, 0.1)'; this.style.borderColor='var(--accent)'"
+                            onmouseout="this.style.background='rgba(30, 35, 48, 0.6)'; this.style.borderColor='var(--border)'">
+                            <label class="cl-checkbox" style="margin-right: -0.7em;">
+                                <input type="checkbox" value="startup-apps">
+                                <span></span>
+                            </label>
+                            <div style="flex: 1;">
+                                <div
+                                    style="color: var(--text-primary); font-family: fontb; margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-rocket" style="color: var(--accent);"></i>
+                                    Startup Apps
+                                </div>
+                                <div style="color: var(--text-secondary); font-size: 0.8rem;">Control which apps launch
+                                    automatically on login</div>
+                            </div>
+                        </label>
+
+                        <label
+                            style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: rgba(30, 35, 48, 0.6); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s ease;"
+                            onmouseover="this.style.background='rgba(125, 211, 192, 0.1)'; this.style.borderColor='var(--accent)'"
+                            onmouseout="this.style.background='rgba(30, 35, 48, 0.6)'; this.style.borderColor='var(--border)'">
+                            <label class="cl-checkbox" style="margin-right: -0.7em;">
+                                <input type="checkbox" value="task-manager">
+                                <span></span>
+                            </label>
+                            <div style="flex: 1;">
+                                <div
+                                    style="color: var(--text-primary); font-family: fontb; margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-tasks" style="color: var(--accent);"></i>
+                                    Task Manager
+                                </div>
+                                <div style="color: var(--text-secondary); font-size: 0.8rem;">Monitor and manage running
+                                    applications</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 0.75rem;">
+                    <button onclick="setupStep3Back()"
+                        style="flex: 1; padding: 0.875rem; background: rgba(125, 211, 192, 0.15); border: 1px solid rgba(125, 211, 192, 0.3); border-radius: 10px; color: var(--text-primary); font-size: 0.95rem; font-family: fontb; cursor: pointer; transition: all 0.2s ease;"
+                        onmouseover="this.style.background='rgba(125, 211, 192, 0.25)'; this.style.borderColor='rgba(125, 211, 192, 0.5)'"
+                        onmouseout="this.style.background='rgba(125, 211, 192, 0.15)'; this.style.borderColor='rgba(125, 211, 192, 0.3)'">
+                        Back
+                    </button>
+                    <button onclick="setupStep3Next()"
+                        style="flex: 1; padding: 0.875rem; background: linear-gradient(135deg, var(--accent), var(--accent-hover)); border: none; border-radius: 10px; color: var(--bg-primary); font-size: 0.95rem; font-family: fontb; cursor: pointer; transition: all 0.2s ease;"
+                        onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(125, 211, 192, 0.3)'"
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                        Continue
+                    </button>
+                </div>
+            </div>
+
+            <div id="setupStep4" style="display: none;">
+                <div style="margin-bottom: 1.5rem;">
+                    <h3 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem; font-family: fontb;">
+                        Customize Your Experience</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.5rem;">Select themes to
+                        install (you can always add more later)</p>
+
+                    <div id="setupThemeOptions" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <label
+                            style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: rgba(30, 35, 48, 0.6); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s ease;"
+                            onmouseover="this.style.background='rgba(125, 211, 192, 0.1)'; this.style.borderColor='var(--accent)'"
+                            onmouseout="this.style.background='rgba(30, 35, 48, 0.6)'; this.style.borderColor='var(--border)'">
+                            <label class="cl-checkbox" style="margin-right: -0.7em;">
+                                <input type="checkbox" value="light">
+                                <span></span>
+                            </label>
+                            <div style="flex: 1;">
+                                <div
+                                    style="color: var(--text-primary); font-family: fontb; margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-sun" style="color: var(--accent);"></i>
+                                    Light Theme
+                                </div>
+                                <div style="color: var(--text-secondary); font-size: 0.8rem;">
+                                    Bright and clean interface for daytime use
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 0.75rem;">
+                    <button onclick="setupStep4Back()"
+                        style="flex: 1; padding: 0.875rem; background: rgba(125, 211, 192, 0.15); border: 1px solid rgba(125, 211, 192, 0.3); border-radius: 10px; color: var(--text-primary); font-size: 0.95rem; font-family: fontb; cursor: pointer; transition: all 0.2s ease;"
+                        onmouseover="this.style.background='rgba(125, 211, 192, 0.25)'; this.style.borderColor='rgba(125, 211, 192, 0.5)'"
+                        onmouseout="this.style.background='rgba(125, 211, 192, 0.15)'; this.style.borderColor='rgba(125, 211, 192, 0.3)'">
+                        Back
+                    </button>
+                    <button onclick="setupComplete()"
+                        style="flex: 2; padding: 0.875rem; background: linear-gradient(135deg, var(--accent), var(--accent-hover)); border: none; border-radius: 10px; color: var(--bg-primary); font-size: 0.95rem; font-family: fontb; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 0.5rem;"
+                        onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(125, 211, 192, 0.3)'"
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                        <i class="fas fa-check"></i> Finish Setup
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="commandLineMode">
+        <div class="cli-terminal" id="cliTerminal">
+            <div class="cli-line" style="color: var(--accent);">
+                Nebulo Command Line Interface v5
+            </div>
+            <div class="cli-line" style="color: #888; margin-bottom: 1rem;">
+                Type 'help' for available commands, 'gui' to switch to graphical mode
+            </div>
+            <div class="cli-line">
+                <span class="cli-prompt">user@nebulo:~$</span>
+                <input type="text" class="cli-input" id="cliInput" onkeypress="handleCLIInput(event)" />
+            </div>
+        </div>
+    </div>
+
+    <div id="desktop">
+        <!-- User Info Display -->
+        <div id="userInfoDisplay" class="user-info-display">
+            <i class="fas fa-user"></i>
+            <div class="user-info-text">
+                <span id="displayUsername">Guest</span>
+                <span id="userAccountStatus" class="user-account-status"></span>
+            </div>
+        </div>
+
+        <!-- Global Chat Container -->
+        <div class="global-chat-container">
+            <div id="chatNotificationToggle" class="global-chat-button" title="Toggle Chat Notifications">
+                <i class="fas fa-bell"></i>
+            </div>
+            <div id="globalChatButton" class="global-chat-button" onclick="openApp('chat')">
+                <i class="fas fa-comments"></i>
+                <span class="chat-text">Global Chat</span>
+                <span class="chat-notification-badge" id="chatNotificationBadge"></span>
+            </div>
+        </div>
+
+        <div class="wallpaper" aria-hidden="true">
+            <div class="wallpaper-glow"></div>
+            <div class="wallpaper-grid">
+                <img src="../Nebulologo.png" alt="Nebulo" class="wallpaper-icon">
+                <div class="wallpaper-text">Nebulo V5.1</div>
+                <p class="wallpaper-byline">by PrismX</p>
+                <p class="wallpaper-tagline">Refined for speed.</p>
+            </div>
+        </div>
+
+        <div class="desktop-icons" id="desktopIcons">
+            <div class="desktop-icon desktop-icon-gold-ring" ondblclick="openApp('browser')" data-app="browser">
+                <i class="fas fa-globe"></i> <span>Browser</span>
+            </div>
+            <div class="desktop-icon desktop-icon-gold-ring" ondblclick="openApp('games')" data-app="games">
+                <i class="fas fa-gamepad"></i> <span>Games</span>
+            </div>
+            <div class="desktop-icon desktop-icon-red-ring" ondblclick="openApp('blooket-bot')" data-app="blooket-bot">
+                <i class="fas fa-robot"></i> <span>Blooket Bot</span>
+            </div>
+            <div class="desktop-icon" ondblclick="openApp('music')" data-app="music">
+                <i class="fas fa-music"></i> <span>Music</span>
+            </div>
+            <div class="desktop-icon" ondblclick="openApp('movies')" data-app="movies">
+                <i class="fas fa-film"></i> <span>Movies</span>
+            </div>
+            <div class="desktop-icon" ondblclick="openApp('roblox')" data-app="roblox">
+                <img src="roblox.png" alt="Roblox"> <span>Roblox</span>
+            </div>
+            <div class="desktop-icon" ondblclick="openApp('clash-royale')" data-app="clash-royale">
+                <img src="clash-royale.png" alt="Clash Royale"> <span>Clash Royale</span>
+            </div>
+            <div class="desktop-icon" ondblclick="openApp('minecraft')" data-app="minecraft">
+                <img src="Minecraft/Minecraft-Grass-Block.jpg" alt="Minecraft"> <span>Minecraft</span>
+            </div>
+            <div class="desktop-icon" ondblclick="openApp('chat')" data-app="chat">
+                <i class="fas fa-comments"></i> <span>Global Chat</span>
+            </div>
+            <div class="desktop-icon links-app-icon" ondblclick="openApp('links')" data-app="links">
+                <i class="fas fa-link"></i> <span>Links</span>
+            </div>
+            <div class="desktop-icon app-folder-toggle" ondblclick="toggleAppFolder()" data-app="apps">
+                <i class="fas fa-th"></i> <span>More Apps</span>
+            </div>
+
+            <div class="desktop-icon" ondblclick="openApp('files')" data-app="files">
+                <i class="fas fa-folder"></i> <span>Files</span>
+            </div>
+            <div class="desktop-icon" ondblclick="openApp('terminal')" data-app="terminal">
+                <i class="fas fa-terminal"></i> <span>Terminal</span>
+            </div>
+            <div class="desktop-icon" ondblclick="openApp('settings')" data-app="settings">
+                <i class="fas fa-cog"></i> <span>Settings</span>
+            </div>
+            <div class="desktop-icon" ondblclick="openApp('editor')" data-app="editor">
+                <i class="fas fa-edit"></i> <span>Text Editor</span>
+            </div>
+            <div class="desktop-icon" ondblclick="openApp('photos')" data-app="photos">
+                <i class="fas fa-images"></i> <span>Photos</span>
+            </div>
+            <div class="desktop-icon" ondblclick="openApp('help')" data-app="help">
+                <i class="fas fa-question-circle"></i> <span>Help</span>
+            </div>
+            <div class="desktop-icon" ondblclick="openApp('whatsnew')" data-app="whatsnew">
+                <i class="fas fa-star"></i> <span>What's New</span>
+            </div>
+            <div class="desktop-icon" ondblclick="openApp('appstore')" data-app="appstore">
+                <i class="fas fa-store"></i> <span>App Store</span>
+            </div>
+        </div>
+        <div class="app-folder-overlay" id="appFolderOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+            <div class="app-folder-panel">
+                <div class="app-folder-header">
+                    <div>
+                        <p class="app-folder-label">Library</p>
+                        <h3>All Nebulo apps</h3>
+                        <p class="app-folder-subtitle">Tap any icon, scroll to browse, and keep the desktop uncluttered.</p>
+                    </div>
+                    <button class="app-folder-close" onclick="toggleAppFolder(false)" aria-label="Close App Library">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="app-folder-grid" id="appFolderGrid"></div>
+            </div>
+        </div>
+        <div id="taskbar" class="taskbar">
+            <div class="taskbar-icon" onclick="toggleStartMenu()">
+                <img src="../Nebulologo.png" alt="Nebulo" style="width: 1.5rem; height: 1.5rem;">
+            </div>
+            <div class="taskbar-divider"></div>
+            <div class="taskbar-icon" onclick="toggleApp('browser')" title="Browser" data-app="browser">
+                <i class="fas fa-globe"></i>
+            </div>
+            <div class="taskbar-icon" onclick="toggleApp('chat')" title="Global Chat" data-app="chat">
+                <i class="fas fa-comments"></i>
+            </div>
+            <div class="taskbar-icon" onclick="toggleApp('settings')" title="Settings" data-app="settings">
+                <i class="fas fa-cog"></i>
+            </div>
+            <div class="taskbar-icon" onclick="toggleApp('cloaking')" title="Cloaking" data-app="cloaking">
+                <i class="fas fa-mask"></i>
+            </div>
+            <div class="taskbar-icon" onclick="toggleApp('achievements')" title="Achievements" data-app="achievements">
+                <i class="fas fa-trophy"></i>
+            </div>
+            <div class="taskbar-divider"></div>
+            <div class="system-tray">
+                <div class="taskbar-icon" onclick="toggleNotificationCenter()" title="Notifications"
+                    id="notificationBell">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="taskbar-icon" onclick="toggleQuickActions()" title="Quick Actions">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="taskbar-icon" onclick="openApp('credits')" title="Credits">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <span id="clock"></span>
+            </div>
+        </div>
+
+        <div class="start-menu" id="startMenu">
+            <div class="start-header">
+                <div class="start-avatar"><i class="fas fa-user"></i></div>
+                <div class="start-user">
+                    <h3 id="startMenuUsername">User</h3>
+                    <p>Standard User</p>
+                </div>
+                <button class="start-signout-btn"
+                    onclick="window.open('https://github.com', '_blank')"
+                    title="GitHub"
+                    style="background: rgba(125, 211, 192, 0.15); border-color: rgba(125, 211, 192, 0.3); color: var(--accent);">
+                    <i class="fab fa-github"></i>
+                </button>
+                <button class="start-signout-btn" onclick="signOutToLogin()" title="Sign Out"
+                    style="background: rgba(125, 211, 192, 0.15); border-color: rgba(125, 211, 192, 0.3); color: var(--accent);">
+                    <i class="fas fa-sign-out-alt"></i> <span>Sign Out</span>
+                </button>
+                <button class="start-signout-btn" onclick="signOut()" title="Shut Down">
+                    <i class="fas fa-power-off"></i> <span>Shut Down</span>
+                </button>
+            </div>
+            <div class="start-search">
+                <input type="text" class="start-search-input" placeholder="Search apps..." id="startSearch">
+                <i class="fas fa-search start-search-icon"></i>
+            </div>
+        <div class="app-grid">
+            <div class="app-item" onclick="openApp('browser')">
+                <div class="app-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <span class="app-label">Browser</span>
+            </div>
+            <div class="app-item" onclick="openApp('games')">
+                <div class="app-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <span class="app-label">Games</span>
+            </div>
+            <div class="app-item" onclick="openApp('music')">
+                <div class="app-icon">
+                    <i class="fas fa-music"></i>
+                </div>
+                <span class="app-label">Music</span>
+            </div>
+            <div class="app-item" onclick="openApp('blooket-bot')">
+                <div class="app-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <span class="app-label">Blooket Bot</span>
+            </div>
+            <div class="app-item" onclick="openApp('movies')">
+                <div class="app-icon">
+                    <i class="fas fa-film"></i>
+                </div>
+                <span class="app-label">Movies</span>
+            </div>
+            <div class="app-item" onclick="openApp('roblox')">
+                <div class="app-icon">
+                    <img src="roblox.png" alt="Roblox">
+                </div>
+                <span class="app-label">Roblox</span>
+            </div>
+            <div class="app-item" onclick="openApp('clash-royale')">
+                <div class="app-icon">
+                    <img src="clash-royale.png" alt="Clash Royale">
+                </div>
+                <span class="app-label">Clash Royale</span>
+            </div>
+            <div class="app-item" onclick="openApp('minecraft')">
+                <div class="app-icon">
+                    <img src="Minecraft/Minecraft-Grass-Block.jpg" alt="Minecraft">
+                </div>
+                <span class="app-label">Minecraft</span>
+            </div>
+            <div class="app-item" onclick="openApp('chat')">
+                <div class="app-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <span class="app-label">Global Chat</span>
+            </div>
+            <div class="app-item" onclick="openApp('links')" data-app="links">
+                <div class="app-icon">
+                    <i class="fas fa-link"></i>
+                </div>
+                <span class="app-label">Links</span>
+            </div>
+            <div class="app-item" onclick="openApp('popular-apps')">
+                <div class="app-icon">
+                    <i class="fas fa-th-large"></i>
+                </div>
+                <span class="app-label">Popular Apps</span>
+            </div>
+            <div class="app-item app-folder-toggle" onclick="toggleAppFolder()" id="appFolderToggle">
+                <div class="app-icon">
+                    <i class="fas fa-th"></i>
+                </div>
+                <span class="app-label">More Apps</span>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    
+    <div class="toast-container" id="toastContainer"></div>
+    <div class="context-menu" id="contextMenu"></div>
+    <div class="quick-actions" id="quickActions">
+        <div class="quick-actions-header">
+            <i class="fas fa-bolt"></i> Quick Actions
+                    </div>
+        <div class="quick-action-item" onclick="hideQuickActions(); takeScreenshot()">
+            <i class="fas fa-camera"></i>
+            <div class="quick-action-content">
+                <div class="quick-action-title">Screenshot</div>
+                <div class="quick-action-desc">Capture your desktop</div>
+                </div>
+                            </div>
+        <div class="quick-action-item" onclick="hideQuickActions(); closeAllWindows()">
+            <i class="fas fa-times-circle"></i>
+            <div class="quick-action-content">
+                <div class="quick-action-title">Close All</div>
+                <div class="quick-action-desc">Close all windows</div>
+                        </div>
+        </div>
+        <div class="quick-action-item"
+            onclick="hideQuickActions(); const link = document.createElement('a'); link.href = './NebuloOS-OneFile/index.html'; link.download = 'Nebulo-OneFile.html'; link.click();">
+            <i class="fas fa-download"></i>
+            <div class="quick-action-content">
+                <div class="quick-action-title">Get OneFile</div>
+                <div class="quick-action-desc">Download standalone version</div>
+            </div>
+        </div>
+        <div class="quick-action-item" onclick="hideQuickActions(); signOutToLogin()">
+            <i class="fas fa-sign-out-alt"></i>
+            <div class="quick-action-content">
+                <div class="quick-action-title">Sign Out</div>
+                <div class="quick-action-desc">Return to login screen</div>
+            </div>
+        </div>
+        <div class="quick-action-item" onclick="hideQuickActions(); signOut()">
+            <i class="fas fa-power-off"></i>
+            <div class="quick-action-content">
+                <div class="quick-action-title">Shut Down</div>
+                <div class="quick-action-desc">Return to home page</div>
+            </div>
+        </div>
+    </div>
+    <div class="notification-center" id="notificationCenter">
+        <div class="notification-center-header">
+            <h3><i class="fas fa-bell"></i> Notifications</h3>
+            <button class="notification-center-clear" onclick="clearAllNotifications()">
+                Clear All
+            </button>
+        </div>
+        <div class="notification-center-list" id="notificationList">
+            <div class="notification-center-empty">
+                <i class="fas fa-bell-slash"></i>
+                <p>No notifications</p>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-indicator" id="scrollIndicator">
+        <div class="scroll-indicator-circle">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </div>
+    <div class="custom-modal" id="customModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon" id="modalIcon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="modal-title" id="modalTitle">Confirm</div>
+            </div>
+            <div class="modal-body" id="modalBody">Are you sure?</div>
+            <div id="modalInputContainer"></div>
+            <div class="modal-buttons" id="modalButtons">
+                <button class="modal-btn modal-btn-secondary" onclick="closeModal()">
+                    Cancel
+                </button>
+                <button class="modal-btn modal-btn-primary" onclick="confirmModal()">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="context-menu" id="contextMenu"></div>
+    <div class="properties-tooltip" id="propertiesTooltip">
+        <div class="properties-close" onclick="hideProperties()">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="properties-header">
+            <div class="properties-icon" id="propIcon">
+                <i class="fas fa-folder"></i>
+            </div>
+            <div class="properties-title">
+                <div class="properties-name" id="propName">Application</div>
+                <div class="properties-type">Application</div>
+            </div>
+        </div>
+        <div class="properties-body">
+            <div class="properties-row">
+                <span class="properties-label">Status</span>
+                <span class="properties-badge preinstalled" id="propStatus">Preinstalled</span>
+            </div>
+            <div class="properties-row">
+                <span class="properties-label">Type</span>
+                <span class="properties-value" id="propType">System Application</span>
+            </div>
+            <div class="properties-row">
+                <span class="properties-label">Location</span>
+                <span class="properties-value">Desktop</span>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./js/main.js"></script>
+
+    <script>
+        // Global Chat Functions
+        let chatWindowVisible = false;
+        let chatSoundEnabled = true;
+        let unreadMessages = 0;
+
+        // The openGlobalChat function was moved to main.js to prevent a recursive loop.
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('DOM fully loaded');
+
+            // Initialize badge as hidden until unread messages arrive
+            const badge = document.getElementById('chatNotificationBadge');
+            if (badge) {
+                badge.textContent = '';
+                badge.style.display = 'none';
+                badge.style.visibility = 'hidden';
+                badge.style.opacity = '0';
+            }
+        });
+
+        // Login/setup overrides removed - using iframe system only
+
+        // register scramjet sw
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("BdSkdFY/sail-sj/sail/sw.js");
+            });
+        }
+
+        // Browser URL input is handled by handleBrowserUrlInput() in main.js
+        // No need for redundant event listener here
+    </script>
+</body>
+
+</html>
